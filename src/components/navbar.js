@@ -5,7 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import logo from '.components/imagenes';
+import logo from './imagenes/logo2.png';
+
 
 function BarraMenu() {
   return (
