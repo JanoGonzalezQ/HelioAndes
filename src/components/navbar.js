@@ -19,8 +19,8 @@ function BarraMenu() {
         className="border-bottom border-primary"
       >
         <Container>
-          <Navbar.Brand href="src\componentes\images\logo2.png">
-            <i className="fas fa-gamepad me-2"></i>LEVELUP
+          <Navbar.Brand href="react-bootstrap-seccion-7\src\components\imagenes\logo2.png">
+            <i class="fa-solid fa-bolt"></i>HELIOANDES
           </Navbar.Brand>
           
           <Navbar.Toggle aria-controls="navbarNav" />
