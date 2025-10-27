@@ -15,7 +15,7 @@ function BarraMenu() {
         bg="dark" 
         variant="dark" 
         expand="lg" 
-        sticky="top" 
+        fixed='top'
         className="border-bottom border-primary"
       >
         <Container>
@@ -25,6 +25,7 @@ function BarraMenu() {
           
           <Navbar.Toggle aria-controls="navbarNav" />
           
+          {/*--- antes del cambio de id por seccion para el navbar---
           <Navbar.Collapse id="navbarNav">
             <Nav className="me-auto mb-2 mb-lg-0">
               <Nav.Link href="Navbar.js" active>Inicio</Nav.Link>
@@ -35,6 +36,18 @@ function BarraMenu() {
               <Nav.Link href="Testimonios.js">Testimonios</Nav.Link>
               <Nav.Link href="FAQ.js">FAQ</Nav.Link>
               <Nav.Link href="Contacto.js">Contacto</Nav.Link>
+            </Nav> */}
+
+            <Navbar.Collapse id="navbarNav">
+            <Nav className="me-auto mb-2 mb-lg-0">
+              <Nav.Link href="#inicio" active>Inicio</Nav.Link>
+              <Nav.Link href="#servicios">Servicios</Nav.Link>
+              <Nav.Link href="#soluciones">Soluciones</Nav.Link>
+              <Nav.Link href="#demo">Demo</Nav.Link>
+              <Nav.Link href="#planes">Planes</Nav.Link>
+              <Nav.Link href="#testimonios">Testimonios</Nav.Link>
+              <Nav.Link href="#FAQ">FAQ</Nav.Link>
+              <Nav.Link href="#contacto">Contacto</Nav.Link>
             </Nav>
             
             <div className="d-flex">
