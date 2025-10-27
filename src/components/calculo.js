@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+// Importamos componentes de Bootstrap para tabla y botón
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
 function CalculadoraIntegral() {
-  // --- Estados del formulario ---
+  // --- ESTADOS - (variables) ---
+  // Cada useState almacena el valor actual de un campo del formulario
   const [panelW, setPanelW] = useState(0);
   const [cantidadPaneles, setCantidadPaneles] = useState(0);
   const [precioInversor, setPrecioInversor] = useState(0);
@@ -22,74 +24,101 @@ function CalculadoraIntegral() {
   const [tipoPie, setTipoPie] = useState("Porcentaje");
   const [valorPie, setValorPie] = useState(0);
 
-  // --- Constantes ---
-  const IVA = 0.19;
-  const costoPorKg = 700;
+  // --- VARIABLES FIJAS ---
+  const IVA = 0.19; // 19% de impuesto
+  const costoPorKg = 700; // Costo adicional por kilo en el envío
 
-  // --- Cálculos base ---
+  // --- CÁLCULOS BASE ---
+  // Potencia total del sistema en kilowatts
   const potenciaKW = (panelW * cantidadPaneles) / 1000;
+
+  // Suma de los valores de los equipos principales
   const subtotalEquipos =
     parseFloat(precioInversor || 0) +
     parseFloat(precioBateria * cantidadBaterias || 0) +
     parseFloat(estructura || 0);
 
-  // Recargo por tipo de techo
-  const porcentajeTecho =
-    tipoTecho === "Teja/Asfalto"
-      ? 0.05
-      : tipoTecho === "Zinc/Planchas"
-      ? 0.02
-      : tipoTecho === "Hormigón"
-      ? 0.07
-      : 0;
+  // --- RECARGO POR TIPO DE TECHO ---
+  // Dependiendo del tipo de techo, se aplica un porcentaje adicional
+  let porcentajeTecho = 0;
+  if (tipoTecho === "Teja/Asfalto") {
+    porcentajeTecho = 0.05; // +5%
+  } else if (tipoTecho === "Zinc/Planchas") {
+    porcentajeTecho = 0.02; // +2%
+  } else if (tipoTecho === "Hormigón") {
+    porcentajeTecho = 0.07; // +7%
+  } else {
+    porcentajeTecho = 0; // Sin recargo
+  }
   const recargoTecho = subtotalEquipos * porcentajeTecho;
 
-  // Subsidio
-  const porcentajeSubsidio =
-    subsidio === "Residencial"
-      ? -0.08
-      : subsidio === "Pyme"
-      ? -0.05
-      : 0;
+  // --- SUBSIDIO ---
+  // Se aplica descuento según el tipo de subsidio elegido
+  let porcentajeSubsidio = 0;
+  if (subsidio === "Residencial") {
+    porcentajeSubsidio = -0.08; // -8%
+  } else if (subsidio === "Pyme") {
+    porcentajeSubsidio = -0.05; // -5%
+  } else {
+    porcentajeSubsidio = 0;
+  }
   const valorSubsidio = (subtotalEquipos + recargoTecho) * porcentajeSubsidio;
 
-  // Instalación final según complejidad
-  const porcentajeComplejidad =
-    complejidad === "Media" ? 0.08 : complejidad === "Alta" ? 0.15 : 0;
+  // --- INSTALACIÓN SEGÚN COMPLEJIDAD ---
+  // La instalación puede aumentar según su nivel de dificultad
+  let porcentajeComplejidad = 0;
+  if (complejidad === "Media") {
+    porcentajeComplejidad = 0.08; // +8%
+  } else if (complejidad === "Alta") {
+    porcentajeComplejidad = 0.15; // +15%
+  } else {
+    porcentajeComplejidad = 0; // Sin recargo
+  }
   const instalacionFinal =
-    parseFloat(instalacionBase || 0) *
-    (1 + porcentajeComplejidad);
+    parseFloat(instalacionBase || 0) * (1 + porcentajeComplejidad);
 
-  // Envío
-  const baseRegion =
-    region === "RM"
-      ? 5000
-      : region === "Norte"
-      ? 9000
-      : region === "Sur"
-      ? 10000
-      : region === "Austral"
-      ? 15000
-      : 0;
+  // --- ENVÍO ---
+  // El costo base del envío cambia según la región
+  let baseRegion = 0;
+  if (region === "RM") {
+    baseRegion = 5000;
+  } else if (region === "Norte") {
+    baseRegion = 9000;
+  } else if (region === "Sur") {
+    baseRegion = 10000;
+  } else if (region === "Austral") {
+    baseRegion = 15000;
+  } else {
+    baseRegion = 0;
+  }
+
+  // Se suma el peso total (por kg) al costo base
   let envio = baseRegion + pesoEnvio * costoPorKg;
-  if (metodoEnvio === "Expres") envio *= 1.2;
 
-  // Garantía
-  const porcentajeGarantia =
-    garantia === "12 meses"
-      ? 0.02
-      : garantia === "24 meses"
-      ? 0.04
-      : garantia === "36 meses"
-      ? 0.06
-      : 0;
+  // Si el método es exprés, se incrementa en un 20%
+  if (metodoEnvio === "Expres") {
+    envio = envio * 1.2;
+  }
+
+  // --- GARANTÍA ---
+  // Se cobra un extra dependiendo de la duración de la garantía
+  let porcentajeGarantia = 0;
+  if (garantia === "12 meses") {
+    porcentajeGarantia = 0.02; // +2%
+  } else if (garantia === "24 meses") {
+    porcentajeGarantia = 0.04; // +4%
+  } else if (garantia === "36 meses") {
+    porcentajeGarantia = 0.06; // +6%
+  } else {
+    porcentajeGarantia = 0;
+  }
   const valorGarantia = subtotalEquipos * porcentajeGarantia;
 
-  // IVA
+  // --- IVA (Impuesto) ---
   const valorIVA =
     (subtotalEquipos + recargoTecho + valorSubsidio + instalacionFinal) * IVA;
 
-  // Total antes de financiar
+  // --- TOTAL ANTES DE FINANCIAR ---
   const totalAntesFinanciar =
     subtotalEquipos +
     recargoTecho +
@@ -99,143 +128,157 @@ function CalculadoraIntegral() {
     envio +
     valorGarantia;
 
-  // --- Financiamiento ---
-  const tasaMensual =
-    planPago === "6 cuotas"
-      ? 0.012
-      : planPago === "12 cuotas"
-      ? 0.011
-      : planPago === "24 cuotas"
-      ? 0.01
-      : 0;
-  const nCuotas =
-    planPago === "6 cuotas"
-      ? 6
-      : planPago === "12 cuotas"
-      ? 12
-      : planPago === "24 cuotas"
-      ? 24
-      : 1;
+  // --- FINANCIAMIENTO ---
+  let tasaMensual = 0;
+  let nCuotas = 1;
 
-  const pie =
-    tipoPie === "Porcentaje"
-      ? totalAntesFinanciar * (valorPie / 100)
-      : parseFloat(valorPie || 0);
+  if (planPago === "6 cuotas") {
+    tasaMensual = 0.012;
+    nCuotas = 6;
+  } else if (planPago === "12 cuotas") {
+    tasaMensual = 0.011;
+    nCuotas = 12;
+  } else if (planPago === "24 cuotas") {
+    tasaMensual = 0.01;
+    nCuotas = 24;
+  } else {
+    tasaMensual = 0;
+    nCuotas = 1;
+  }
+
+  // Cálculo del pie (puede ser porcentaje o monto fijo)
+  let pie = 0;
+  if (tipoPie === "Porcentaje") {
+    pie = totalAntesFinanciar * (valorPie / 100);
+  } else {
+    pie = parseFloat(valorPie || 0);
+  }
+
+  // Se calcula cuánto se financia y el interés total
   const montoFinanciar = Math.max(totalAntesFinanciar - pie, 0);
   const interesTotal = montoFinanciar * tasaMensual * nCuotas;
-  const cuota =
-    nCuotas > 1
-      ? (montoFinanciar + interesTotal) / nCuotas
-      : totalAntesFinanciar;
+
+  // Si hay cuotas, se reparte el total; si es contado, se paga completo
+  let cuota = 0;
+  if (nCuotas > 1) {
+    cuota = (montoFinanciar + interesTotal) / nCuotas;
+  } else {
+    cuota = totalAntesFinanciar;
+  }
+
+  // Total general del sistema
   const totalFinal = totalAntesFinanciar + interesTotal;
 
-  // --- Funciones auxiliares ---
+  // --- FUNCIONES AUXILIARES ---
+  // Reinicia la página
   const reset = () => {
     window.location.reload();
   };
 
+  // Da formato de moneda en pesos chilenos
   const formato = (valor) =>
     isNaN(valor) ? "—" : "$ " + valor.toLocaleString("es-CL");
 
+  // --- INTERFAZ (GRILLA DE PANTALLA) ---
   return (
     <div className="container mt-4">
-      <h3 className="mb-3">Calculadora Integral de Sistema Solar</h3>
-      <div className="row g-4">
-        {/* --- COLUMNA IZQUIERDA --- */}
-        <div className="col-12 col-lg-6">
-          <h5>Formulario</h5>
-          <div className="form-group mb-2">
-            <label>Potencia del panel (W)</label>
+      <div className="row mt-3">
+        <h4>Costo de un sistema solar instalado</h4>
+
+        
+        {/* Columna izquierda: Formulario */}
+        <div className="col-lg-6">
+
+          {/* Entradas de datos */}
+          <label className="form-label">Potencia del panel (W)</label>
+          <input
+            type="number"
+            className="form-control"
+            placeholder="450"
+            value={panelW}
+            onChange={(e) => setPanelW(e.target.value)}
+          />
+
+          <div className="form-group mt-3">
+            <label className="form-label">Cantidad de paneles</label>
             <input
               type="number"
-              min="0"
               className="form-control"
-              value={panelW}
-              onChange={(e) => setPanelW(e.target.value)}
-              placeholder="450"
-            />
-          </div>
-          <div className="form-group mb-2">
-            <label>Cantidad de paneles</label>
-            <input
-              type="number"
-              min="0"
-              className="form-control"
+              placeholder="8"
               value={cantidadPaneles}
               onChange={(e) => setCantidadPaneles(e.target.value)}
-              placeholder="8"
-            />
-          </div>
-          <div className="form-group mb-2">
-            <label>Inversor (precio)</label>
-            <input
-              type="number"
-              min="0"
-              className="form-control"
-              value={precioInversor}
-              onChange={(e) => setPrecioInversor(e.target.value)}
-              placeholder="650000"
-            />
-          </div>
-          <div className="form-group mb-2">
-            <label>Batería (precio unidad)</label>
-            <input
-              type="number"
-              min="0"
-              className="form-control"
-              value={precioBateria}
-              onChange={(e) => setPrecioBateria(e.target.value)}
-              placeholder="320000"
-            />
-          </div>
-          <div className="form-group mb-2">
-            <label>Cantidad baterías</label>
-            <input
-              type="number"
-              min="0"
-              className="form-control"
-              value={cantidadBaterias}
-              onChange={(e) => setCantidadBaterias(e.target.value)}
-              placeholder="1"
-            />
-          </div>
-          <div className="form-group mb-2">
-            <label>Estructura y cableado</label>
-            <input
-              type="number"
-              min="0"
-              className="form-control"
-              value={estructura}
-              onChange={(e) => setEstructura(e.target.value)}
-              placeholder="180000"
-            />
-          </div>
-          <div className="form-group mb-2">
-            <label>Instalación base</label>
-            <input
-              type="number"
-              min="0"
-              className="form-control"
-              value={instalacionBase}
-              onChange={(e) => setInstalacionBase(e.target.value)}
-              placeholder="350000"
-            />
-          </div>
-          <div className="form-group mb-2">
-            <label>Peso envío (kg)</label>
-            <input
-              type="number"
-              min="0"
-              className="form-control"
-              value={pesoEnvio}
-              onChange={(e) => setPesoEnvio(e.target.value)}
-              placeholder="90"
             />
           </div>
 
-          {/* Selects */}
-          <div className="form-group mb-2">
-            <label>Tipo de techo</label>
+          <div className="form-group mt-3">
+            <label className="form-label">Inversor (precio)</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="650000"
+              value={precioInversor}
+              onChange={(e) => setPrecioInversor(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Batería (precio unidad)</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="320000"
+              value={precioBateria}
+              onChange={(e) => setPrecioBateria(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Cantidad baterías</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="1"
+              value={cantidadBaterias}
+              onChange={(e) => setCantidadBaterias(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Estructura y cableado</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="180000"
+              value={estructura}
+              onChange={(e) => setEstructura(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Instalación base</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="350000"
+              value={instalacionBase}
+              onChange={(e) => setInstalacionBase(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Peso envío (kg)</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="90"
+              value={pesoEnvio}
+              onChange={(e) => setPesoEnvio(e.target.value)}
+            />
+          </div>
+
+          {/* Selects (listas desplegables) */}
+          <div className="form-group mt-3">
+            <label className="form-label">Tipo de techo</label>
             <select
               className="form-select"
               value={tipoTecho}
@@ -247,8 +290,9 @@ function CalculadoraIntegral() {
               <option>Hormigón</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Región</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Región</label>
             <select
               className="form-select"
               value={region}
@@ -261,8 +305,9 @@ function CalculadoraIntegral() {
               <option>Austral</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Complejidad instalación</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Complejidad instalación</label>
             <select
               className="form-select"
               value={complejidad}
@@ -274,8 +319,9 @@ function CalculadoraIntegral() {
               <option>Alta</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Subsidio</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Subsidio</label>
             <select
               className="form-select"
               value={subsidio}
@@ -287,8 +333,9 @@ function CalculadoraIntegral() {
               <option>Pyme</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Método de envío</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Método de envío</label>
             <select
               className="form-select"
               value={metodoEnvio}
@@ -299,8 +346,9 @@ function CalculadoraIntegral() {
               <option>Expres</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Garantía</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Garantía</label>
             <select
               className="form-select"
               value={garantia}
@@ -312,8 +360,9 @@ function CalculadoraIntegral() {
               <option>36 meses</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Plan de pago</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Plan de pago</label>
             <select
               className="form-select"
               value={planPago}
@@ -326,8 +375,9 @@ function CalculadoraIntegral() {
               <option>24 cuotas</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Tipo de pie</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Tipo de pie</label>
             <select
               className="form-select"
               value={tipoPie}
@@ -337,34 +387,43 @@ function CalculadoraIntegral() {
               <option>Monto fijo</option>
             </select>
           </div>
-          <div className="form-group mb-2">
-            <label>Valor de pie</label>
+
+          <div className="form-group mt-3">
+            <label className="form-label">Valor de pie</label>
             <input
               type="number"
-              min="0"
               className="form-control"
+              placeholder="10"
               value={valorPie}
               onChange={(e) => setValorPie(e.target.value)}
-              placeholder="10"
             />
           </div>
 
-          <Button variant="secondary" className="mt-3 me-2" onClick={reset}>
+          <Button variant="secondary" className="mt-3" onClick={reset}>
             Reiniciar
           </Button>
         </div>
 
-        {/* --- COLUMNA DERECHA --- */}
-        <div className="col-12 col-lg-6">
-          <h5>Resumen</h5>
-          {potenciaKW > 7 && cantidadBaterias === 0 && (
-            <div className="alert alert-warning p-2">
-              ⚠️ Recomendado considerar almacenamiento para estabilidad del sistema.
-            </div>
-          )}
-
-          <Table striped bordered>
+        {/* Columna derecha: Resultados */}
+        
+        <div className="col-lg-6">
+          <div className="row mt-3">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th colSpan={2}>Resumen del cálculo</th>
+              </tr>
+            </thead>
             <tbody>
+              {/* Mensaje de advertencia */}
+              {potenciaKW > 7 && cantidadBaterias === 0 && (
+                <tr>
+                  <td colSpan={2} style={{ backgroundColor: "#fff3cd", color: "#664d03" }}>
+                    Recomendado considerar baterías para estabilidad del sistema.
+                  </td>
+                </tr>
+              )}
+              {/* Fila por cada concepto calculado */}
               <tr>
                 <td>Potencia estimada (kW)</td>
                 <td>{isNaN(potenciaKW) ? "—" : potenciaKW.toFixed(2)}</td>
@@ -422,7 +481,9 @@ function CalculadoraIntegral() {
         </div>
       </div>
     </div>
+    </div>
   );
 }
 
+// Exportamos el componente principal
 export default CalculadoraIntegral;
