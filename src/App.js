@@ -3,6 +3,7 @@ import './App.css';
 import Hero from './components/hero'
 import CalculoRemuneracion from './components/calculo';
 import Navbar from './components/navbar';
+import Contacto from './components/contacto';
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
         <Hero/>
         <CalculoRemuneracion/>
       </div>
+        <Contacto />
     </div>
   );
 }
