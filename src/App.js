@@ -19,7 +19,7 @@ function App() {
           <Hero />
         </div>
 
-        <div id="calculo">
+        <div id="demo">
           <CalculoRemuneracion />
         </div>
 
