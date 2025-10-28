@@ -5,6 +5,7 @@ import CalculoRemuneracion from './components/calculo';
 import Navbar from './components/navbar';
 import Contacto from './components/contacto';
 import Servicios from './components/servicios';
+import Soluciones from './components/soluciones';
 
 function App() {
   return (
@@ -24,6 +25,12 @@ function App() {
         <div id="servicios">
           <Servicios/>
         </div>
+
+        <div id="soluciones">
+          <Soluciones/>
+        </div>
+
+        
 
         <div id="demo-calculadora">
           <CalculoRemuneracion />
