@@ -4,6 +4,7 @@ import Hero from './components/hero';
 import CalculoRemuneracion from './components/calculo';
 import Navbar from './components/navbar';
 import Contacto from './components/contacto';
+import Servicios from './components/servicios';
 
 function App() {
   return (
@@ -15,11 +16,16 @@ function App() {
           <Navbar />
         </div>
 
-        <div id="hero">
+        
+         <div id="hero">
           <Hero />
         </div>
 
-        <div id="demo">
+        <div id="servicios">
+          <Servicios/>
+        </div>
+
+        <div id="demo-calculadora">
           <CalculoRemuneracion />
         </div>
 

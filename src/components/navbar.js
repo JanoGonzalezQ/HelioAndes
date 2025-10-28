@@ -43,7 +43,7 @@ function BarraMenu() {
               <Nav.Link href="#inicio" active>Inicio</Nav.Link>
               <Nav.Link href="#servicios">Servicios</Nav.Link>
               <Nav.Link href="#soluciones">Soluciones</Nav.Link>
-              <Nav.Link href="#demo">Demo</Nav.Link>
+              <Nav.Link href="#demo-calculadora">Demo</Nav.Link>
               <Nav.Link href="#planes">Planes</Nav.Link>
               <Nav.Link href="#testimonios">Testimonios</Nav.Link>
               <Nav.Link href="#FAQ">FAQ</Nav.Link>
