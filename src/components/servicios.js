@@ -19,9 +19,6 @@ function DescripcionServicios() {
             <div className="col-lg-3">
                 <h2>4. Mantención Preventiva y Correctiva</h2>
                 <p>HELIOANDES ofrece planes de mantenimiento que incluyen limpieza de paneles, revisión de cableado, y control de componentes eléctricos. Con esto se prolonga la vida útil del sistema y se mantiene su eficiencia a lo largo del tiempo.</p>
-                <p>HELIOANDES ofrece planes de mantenimiento que incluyen limpieza de paneles, revisión de cableado, y control de componentes eléctricos. Con esto se prolonga la vida útil del sistema y se mantiene su eficiencia a lo largo del tiempo.</p>
-                <p>HELIOANDES ofrece planes de mantenimiento que incluyen limpieza de paneles, revisión de cableado, y control de componentes eléctricos. Con esto se prolonga la vida útil del sistema y se mantiene su eficiencia a lo largo del tiempo.</p>
-
             </div>
 
 
