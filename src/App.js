@@ -7,7 +7,8 @@ import Contacto from './components/contacto';
 import Servicios from './components/servicios';
 import Soluciones from './components/soluciones';
 import DescripcionPlanes from './components/planes';
-import DescripcionTestimonios from './components/testimonios';
+import DescripcionTestimonio from './components/testimonios';
+import DescripcionFooter from "./components/footer";
 
 function App() {
   return (
@@ -42,10 +43,10 @@ function App() {
           <DescripcionPlanes/>
         </div>
 
-        <div id="testimonios">
-          <DescripcionTestimonios/>
+        <div id="testimonio">
+          <DescripcionTestimonio/>
         </div>
-
+        
 
       </div>
 
@@ -53,6 +54,10 @@ function App() {
       <div id="contacto">
         <Contacto />
       </div>
+
+        <div id="footer">
+          <DescripcionFooter/>
+        </div>
     </div>
   );
 }

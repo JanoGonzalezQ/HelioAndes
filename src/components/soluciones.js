@@ -1,25 +1,23 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-
-import Button from 'react-bootstrap/Button';
+import React from 'react'; //Importaciones
+import { Container } from 'react-bootstrap'; //Importaciones
+import Button from 'react-bootstrap/Button'; //Importaciones
 import Card from 'react-bootstrap/Card';
+import CardKit1 from './imagenes/card_kit1.jpg'; //Importaciones imagenes
+import CardKit2 from './imagenes/card_kit2.jpg'; //Importaciones imagenes
+import CardKit3 from './imagenes/card_kit3.jpg'; //Importaciones imagenes
 
-import CardKit1 from './imagenes/card_kit1.jpg';
-import CardKit2 from './imagenes/card_kit2.jpg';
-import CardKit3 from './imagenes/card_kit3.jpg';
 
-
-function TarjetaServicios() {
+function TarjetaServicios() { 
   return (
     <Container>
-         <div className="row mt-3"
+         <div className="row mt-3" //crea una fila con un margen superior
     style={{
         backgroundImage: `linear-gradient(rgba(161, 8, 8, 0.7), rgba(0,0,0,0.7))`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat', //backgroundImage: genera el degradado de color.
+        backgroundPosition: 'center', //backgroundImage: genera el degradado de color.
         backgroundSize: 'cover',
-        padding: '30px 0',
-        color: 'rgba(16, 15, 15, 0.7)',
+        padding: '30px 0', //padding:agrega espacio vertical.
+        color: 'rgba(16, 15, 15, 0.7)', //color del texto
         textAlign: 'left'
     }}>
         <h2>SOLUCIONES</h2>
