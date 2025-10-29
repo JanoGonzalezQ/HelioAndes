@@ -31,7 +31,7 @@ function TarjetaServicios() {
                 Ideal para una casa promedio. 
                 Cubre consumos esenciales: iluminación, refrigerador, TV, trabajo remoto y algunos equipos de climatización.
                 </Card.Text>
-                <Button variant="primary">Contactanos</Button>
+                <Button variant="primary" href="#contacto">Contactanos</Button>
             </Card.Body>
             </Card> 
         
@@ -46,7 +46,7 @@ function TarjetaServicios() {
                 Pensado para comercio o pequeños talleres. 
                 Reduce costos operativos, estabiliza la cuenta de luz y mejora la imagen sustentable de tu negocio.
                 </Card.Text>
-                <Button variant="primary">Contactanos</Button>
+                <Button variant="primary" href="#contacto">Contactanos</Button>
             </Card.Body>
             </Card> 
         
@@ -61,7 +61,7 @@ function TarjetaServicios() {
                 Solución con almacenamiento en baterías. 
                 Mantiene equipos críticos activos incluso en cortes de luz. Ideal para zonas rurales o uso de respaldo.
                 </Card.Text>
-                <Button variant="primary">Contactanos</Button>
+                <Button variant="primary" href="#contacto">Contactanos</Button>
             </Card.Body>
             </Card> 
         

@@ -27,7 +27,7 @@ function DescripcionServicios() {
         <h2 className="text-light mb-4">SERVICIOS</h2>
 
         <div className="row g-4">
-          {/* Card 1 */}
+          {/* Tarjeta 1 */}
           <div className="col-12 col-md-6 col-lg-3">
             <Card className="h-100 shadow-sm">
               <Card.Img
@@ -45,12 +45,12 @@ function DescripcionServicios() {
                   dimensionar correctamente el sistema solar, optimizando la
                   generación y el retorno de la inversión.
                 </Card.Text>
-                <Button variant="primary">Conoce más</Button>
+                <Button variant="primary" href="#contacto">Conoce más</Button>
               </Card.Body>
             </Card>
           </div>
 
-          {/* Card 2 */}
+          {/* Tarjeta 2 */}
           <div className="col-12 col-md-6 col-lg-3">
             <Card className="h-100 shadow-sm">
               <Card.Img
@@ -68,12 +68,12 @@ function DescripcionServicios() {
                   Esto garantiza la seguridad del sistema y habilita su
                   conexión formal a la red.
                 </Card.Text>
-                <Button variant="primary">Conoce más</Button>
+                <Button variant="primary" href="#contacto">Conoce más</Button>
               </Card.Body>
             </Card>
           </div>
 
-          {/* Card 3 */}
+          {/* Tarjeta 3 */}
           <div className="col-12 col-md-6 col-lg-3">
             <Card className="h-100 shadow-sm">
               <Card.Img
@@ -91,12 +91,12 @@ function DescripcionServicios() {
                   positivo. Este seguimiento ayuda a detectar cualquier falla o
                   desviación de rendimiento.
                 </Card.Text>
-                <Button variant="primary">Conoce más</Button>
+                <Button variant="primary" href="#contacto">Conoce más</Button>
               </Card.Body>
             </Card>
           </div>
 
-          {/* Card 4 */}
+          {/* Tarjeta 4 */}
           <div className="col-12 col-md-6 col-lg-3">
             <Card className="h-100 shadow-sm">
               <Card.Img
@@ -113,7 +113,7 @@ function DescripcionServicios() {
                   componentes eléctricos. Con esto se prolonga la vida útil del
                   sistema y se mantiene su eficiencia a lo largo del tiempo.
                 </Card.Text>
-                <Button variant="primary">Conoce más</Button>
+                <Button variant="primary" href="#contacto">Conoce más</Button>
               </Card.Body>
             </Card>
           </div>

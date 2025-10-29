@@ -6,7 +6,7 @@ function Acordeon() {
   return (
     <Container>
       <div
-        className="row mt-3 rounded"
+        className="row mt-3 mb-1 rounded"
         style={{
           backgroundImage: `linear-gradient(rgba(72, 161, 8, 0.7), rgba(0,0,0,0.7))`,
           backgroundRepeat: "no-repeat",
@@ -17,7 +17,7 @@ function Acordeon() {
           textAlign: "left",
         }}
       >
-        <h2 className="text-light mb-4">FAQ</h2>
+        <h2 className="text-light mb-4 ">FAQ</h2>
     <Accordion>
       <Accordion.Item eventKey="0">
         <Accordion.Header>¿Qué garantía tienen los paneles solares?</Accordion.Header>

@@ -101,8 +101,3 @@ function Contacto() {
 
 export default Contacto;
 
-      <footer className="bg-dark text-center py-3 border-top border-primary">
-        <p className="mb-0 text-light">
-          &copy; 2025 HelioAndes - Todos los derechos reservados
-        </p>
-      </footer>

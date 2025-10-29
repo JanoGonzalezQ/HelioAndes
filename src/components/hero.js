@@ -16,7 +16,7 @@ function BannerPrincipal() {
         textAlign: 'center',
       }}
     >
-      <div className='col-lg-12'>
+      <div className='col-lg-12' >
         <h1>Bienvenido a HELIOANDES</h1>
         <p>Energía solar accesible y confiable para tu hogar o pyme</p>
 
