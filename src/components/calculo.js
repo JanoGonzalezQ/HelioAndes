@@ -137,8 +137,9 @@ function CalculadoraIntegral() {
   } else {
     cuota = totalAntesFinanciar;
   }
-
-  const totalFinal = totalAntesFinanciar + interesTotal;
+  // agregamos to fixed para dejar el total redondeado. Al agregar cuotas, quedaba con decimales.
+  // agregamos el campo Number para mantener los separadores de miles. Al redondear con toFixed, se perdia. 
+  const totalFinal = Number((totalAntesFinanciar + interesTotal).toFixed(0));
 
   // Helpers
   const reset = () => {
@@ -359,21 +360,38 @@ function CalculadoraIntegral() {
               value={tipoPie}
               onChange={(e) => setTipoPie(e.target.value)}
             >
-              <option>Porcentaje</option>
-              <option>Monto fijo</option>
+              <option value="Porcentaje">Porcentaje</option>
+              <option value="Monto fijo">Monto fijo</option>
             </select>
           </div>
 
+          {/* Campo dinámico según el tipo de pie */}
           <div className="form-group mt-3">
-            <label className="form-label">Valor de pie</label>
+            <label className="form-label">
+              {tipoPie === "Porcentaje" ? "Porcentaje de pie (%)" : "Monto de pie ($)"}
+            </label>
             <input
               type="number"
               className="form-control"
-              placeholder="10"
+              placeholder={tipoPie === "Porcentaje" ? "Ej: 10" : "Ej: 100000"}
               value={valorPie}
-              onChange={(e) => setValorPie(e.target.value)}
+              min={tipoPie === "Porcentaje" ? 0 : undefined}
+              max={tipoPie === "Porcentaje" ? 100 : undefined}
+              step={tipoPie === "Porcentaje" ? 0.1 : 1000}
+              onChange={(e) => {
+                let v = parseFloat(e.target.value) || 0;
+
+                // Si el tipo es porcentaje, limitamos entre 0 y 100
+                if (tipoPie === "Porcentaje") {
+                  if (v < 0) v = 0;
+                  if (v > 100) v = 100;
+                }
+
+                setValorPie(v);
+              }}
             />
           </div>
+
 
           <Button variant="secondary" className="mt-3" onClick={reset}>
             Reiniciar

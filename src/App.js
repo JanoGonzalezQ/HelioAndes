@@ -44,7 +44,7 @@ function App() {
           <DescripcionPlanes/>
         </div>
 
-        <div id="testimonio">
+        <div id="testimonios">
           <DescripcionTestimonio/>
         </div>
         
