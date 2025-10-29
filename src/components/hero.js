@@ -5,7 +5,7 @@ import logo2 from './imagenes/logo2.png';
 function BannerPrincipal() {
   return (
     <div
-      className='row mt-3 mb-1 rounded-3' 
+      className='row mt-3 mb-1 rounded-pill' 
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${logo2})`,
         backgroundRepeat: 'no-repeat',

@@ -12,9 +12,9 @@ function TarjetaServicios() {
     <Container>
          <div className="row mt-3" //crea una fila con un margen superior
     style={{
-        backgroundImage: `linear-gradient(rgba(161, 8, 8, 0.7), rgba(0,0,0,0.7))`,
-        backgroundRepeat: 'no-repeat', //backgroundImage: genera el degradado de color.
-        backgroundPosition: 'center', //backgroundImage: genera el degradado de color.
+        backgroundImage: `linear-gradient(rgba(161, 8, 8, 0.7), rgba(0,0,0,0.7))`, //backgroundImage: genera el degradado de color.
+        backgroundRepeat: 'no-repeat', 
+        backgroundPosition: 'center', 
         backgroundSize: 'cover',
         padding: '30px 0', //padding:agrega espacio vertical.
         color: 'rgba(255, 255, 255, 1)', //color del texto

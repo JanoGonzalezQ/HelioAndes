@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 
 function CalculadoraIntegral() {
   // --- ESTADOS ---
+  // Guardan los valores que el usuario ingresa o selecciona
   const [panelW, setPanelW] = useState(0);
   const [cantidadPaneles, setCantidadPaneles] = useState(0);
   const [precioInversor, setPrecioInversor] = useState(0);
@@ -24,49 +25,49 @@ function CalculadoraIntegral() {
   const [valorPie, setValorPie] = useState(0);
 
   // --- CONSTANTES ---
-  const IVA = 0.19;
-  const costoPorKg = 700;
+  const IVA = 0.19;              // Impuesto IVA del 19%
+  const costoPorKg = 700;        // Costo de envío por kilo
 
   // --- CÁLCULOS BASE ---
-  const potenciaKW = (panelW * cantidadPaneles) / 1000;
+  const potenciaKW = (panelW * cantidadPaneles) / 1000;  // Potencia total en kW
 
+  // Suma de los precios de los equipos
   const subtotalEquipos =
     parseFloat(precioInversor || 0) +
     parseFloat(precioBateria * cantidadBaterias || 0) +
     parseFloat(estructura || 0);
 
-  // Recargo por tipo de techo
-  let porcentajeTecho = 0;
+  // --- RECARGO POR TIPO DE TECHO ---
+  let porcentajeTecho = 0;        
   if (tipoTecho === "Teja/Asfalto") {
-    porcentajeTecho = 0.05;
+    porcentajeTecho = 0.05;       
   } else if (tipoTecho === "Zinc/Planchas") {
-    porcentajeTecho = 0.02;
+    porcentajeTecho = 0.02;       
   } else if (tipoTecho === "Hormigón") {
-    porcentajeTecho = 0.07;
+    porcentajeTecho = 0.07;       
   }
-  const recargoTecho = subtotalEquipos * porcentajeTecho;
+  const recargoTecho = subtotalEquipos * porcentajeTecho; 
 
-  // Subsidio
-  let porcentajeSubsidio = 0;
+  // --- SUBSIDIO ---
+  let porcentajeSubsidio = 0;     
   if (subsidio === "Residencial") {
-    porcentajeSubsidio = -0.08;
+    porcentajeSubsidio = -0.08;   
   } else if (subsidio === "Pyme") {
-    porcentajeSubsidio = -0.05;
+    porcentajeSubsidio = -0.05;   
   }
   const valorSubsidio = (subtotalEquipos + recargoTecho) * porcentajeSubsidio;
 
-  // Instalación según complejidad
-  let porcentajeComplejidad = 0;
+  // --- INSTALACIÓN SEGÚN COMPLEJIDAD ---
+  let porcentajeComplejidad = 0;  
   if (complejidad === "Media") {
-    porcentajeComplejidad = 0.08;
+    porcentajeComplejidad = 0.08; 
   } else if (complejidad === "Alta") {
-    porcentajeComplejidad = 0.15;
+    porcentajeComplejidad = 0.15; 
   }
-  const instalacionFinal =
-    parseFloat(instalacionBase || 0) * (1 + porcentajeComplejidad);
+  const instalacionFinal = parseFloat(instalacionBase || 0) * (1 + porcentajeComplejidad);
 
-  // Envío
-  let baseRegion = 0;
+  // --- ENVÍO ---
+  let baseRegion = 0;             
   if (region === "RM") {
     baseRegion = 5000;
   } else if (region === "Norte") {
@@ -76,28 +77,27 @@ function CalculadoraIntegral() {
   } else if (region === "Austral") {
     baseRegion = 15000;
   }
-
   let envio = baseRegion + pesoEnvio * costoPorKg;
   if (metodoEnvio === "Expres") {
-    envio = envio * 1.2;
+    envio = envio * 1.2;          
   }
 
-  // Garantía
-  let porcentajeGarantia = 0;
+  // --- GARANTÍA ---
+  let porcentajeGarantia = 0;      
   if (garantia === "12 meses") {
-    porcentajeGarantia = 0.02;
+    porcentajeGarantia = 0.02;     
   } else if (garantia === "24 meses") {
-    porcentajeGarantia = 0.04;
+    porcentajeGarantia = 0.04;     
   } else if (garantia === "36 meses") {
-    porcentajeGarantia = 0.06;
+    porcentajeGarantia = 0.06;     
   }
   const valorGarantia = subtotalEquipos * porcentajeGarantia;
 
-  // IVA
+  // --- IVA ---
   const valorIVA =
     (subtotalEquipos + recargoTecho + valorSubsidio + instalacionFinal) * IVA;
 
-  // Total antes de financiar
+  // --- TOTAL ANTES DE FINANCIAR ---
   const totalAntesFinanciar =
     subtotalEquipos +
     recargoTecho +
@@ -107,45 +107,49 @@ function CalculadoraIntegral() {
     envio +
     valorGarantia;
 
-  // Financiamiento
-  let tasaMensual = 0;
-  let nCuotas = 1;
+  // --- FINANCIAMIENTO ---
+  let tasaMensual = 0;             
+  let nCuotas = 1;                 
   if (planPago === "6 cuotas") {
-    tasaMensual = 0.012;
+    tasaMensual = 0.012;           
     nCuotas = 6;
   } else if (planPago === "12 cuotas") {
-    tasaMensual = 0.011;
+    tasaMensual = 0.011;           
     nCuotas = 12;
   } else if (planPago === "24 cuotas") {
-    tasaMensual = 0.01;
+    tasaMensual = 0.01;            
     nCuotas = 24;
   }
 
+  // --- PIE (porcentaje o monto fijo) ---
   let pie = 0;
   if (tipoPie === "Porcentaje") {
-    pie = totalAntesFinanciar * (valorPie / 100);
+    pie = totalAntesFinanciar * (valorPie / 100);  
   } else {
-    pie = parseFloat(valorPie || 0);
+    pie = parseFloat(valorPie || 0);               
   }
 
+  // Monto que se financia después de aplicar el pie
   const montoFinanciar = Math.max(totalAntesFinanciar - pie, 0);
+
+  // Interés total del crédito
   const interesTotal = montoFinanciar * tasaMensual * nCuotas;
 
+  // Valor de cada cuota (si hay cuotas)
   let cuota = 0;
   if (nCuotas > 1) {
     cuota = (montoFinanciar + interesTotal) / nCuotas;
   } else {
     cuota = totalAntesFinanciar;
   }
-  // agregamos to fixed para dejar el total redondeado. Al agregar cuotas, quedaba con decimales.
-  // agregamos el campo Number para mantener los separadores de miles. Al redondear con toFixed, se perdia. 
+
+  // Redondea el total final (sin decimales)
   const totalFinal = Number((totalAntesFinanciar + interesTotal).toFixed(0));
 
-  // Helpers
-  const reset = () => {
-    window.location.reload();
-  };
+  // --- FUNCIONES AUXILIARES ---
+  const reset = () => window.location.reload(); // Reinicia los valores
 
+  // Formatea los valores con separador de miles (ej: $1.250.000)
   const formato = (valor) =>
     isNaN(valor) ? "—" : "$ " + valor.toLocaleString("es-CL");
 
@@ -165,8 +169,9 @@ function CalculadoraIntegral() {
       >
         <h4 className="text-light mb-4">Costo de un sistema solar instalado</h4>
 
-        {/* Columna izquierda: Formulario */}
+        {/* --- COLUMNA IZQUIERDA: FORMULARIO --- */}
         <div className="col-lg-6 text-light">
+          {/* Campos numéricos para ingresar datos */}
           <label className="form-label">Potencia del panel (W)</label>
           <input
             type="number"
@@ -253,7 +258,7 @@ function CalculadoraIntegral() {
             />
           </div>
 
-          {/* Selects */}
+          {/* Selects con opciones predefinidas */}
           <div className="form-group mt-3">
             <label className="form-label">Tipo de techo</label>
             <select
@@ -365,7 +370,7 @@ function CalculadoraIntegral() {
             </select>
           </div>
 
-          {/* Campo dinámico según el tipo de pie */}
+          {/* Campo que cambia según si el pie es en % o en $ */}
           <div className="form-group mt-3">
             <label className="form-label">
               {tipoPie === "Porcentaje" ? "Porcentaje de pie (%)" : "Monto de pie ($)"}
@@ -380,29 +385,26 @@ function CalculadoraIntegral() {
               step={tipoPie === "Porcentaje" ? 0.1 : 1000}
               onChange={(e) => {
                 let v = parseFloat(e.target.value) || 0;
-
-                // Si el tipo es porcentaje, limitamos entre 0 y 100
                 if (tipoPie === "Porcentaje") {
                   if (v < 0) v = 0;
                   if (v > 100) v = 100;
                 }
-
                 setValorPie(v);
               }}
             />
           </div>
-
 
           <Button variant="secondary" className="mt-3" onClick={reset}>
             Reiniciar
           </Button>
         </div>
 
-        {/* Columna derecha: Resultados */}
+        {/* --- COLUMNA DERECHA: RESULTADOS --- */}
         <div className="col-lg-6 mt-4 mt-lg-0 text-light">
           <h5>Resumen del cálculo</h5>
           <Table striped bordered hover variant="dark">
             <tbody>
+              {/* Muestra mensaje si hay potencia alta sin baterías */}
               {potenciaKW > 7 && cantidadBaterias === 0 && (
                 <tr>
                   <td colSpan={2} style={{ backgroundColor: "#fff3cd", color: "#664d03" }}>
@@ -410,58 +412,20 @@ function CalculadoraIntegral() {
                   </td>
                 </tr>
               )}
-              <tr>
-                <td>Potencia estimada (kW)</td>
-                <td>{isNaN(potenciaKW) ? "—" : potenciaKW.toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td>Subtotal equipos</td>
-                <td>{formato(subtotalEquipos)}</td>
-              </tr>
-              <tr>
-                <td>Recargo techo</td>
-                <td>{formato(recargoTecho)}</td>
-              </tr>
-              <tr>
-                <td>Subsidio</td>
-                <td>{formato(valorSubsidio)}</td>
-              </tr>
-              <tr>
-                <td>Instalación final</td>
-                <td>{formato(instalacionFinal)}</td>
-              </tr>
-              <tr>
-                <td>IVA 19%</td>
-                <td>{formato(valorIVA)}</td>
-              </tr>
-              <tr>
-                <td>Envío</td>
-                <td>{formato(envio)}</td>
-              </tr>
-              <tr>
-                <td>Garantía</td>
-                <td>{formato(valorGarantia)}</td>
-              </tr>
-              <tr>
-                <td>Total antes de financiar</td>
-                <td>{formato(totalAntesFinanciar)}</td>
-              </tr>
-              <tr>
-                <td>Pie</td>
-                <td>{formato(pie)}</td>
-              </tr>
-              <tr>
-                <td>Interés total</td>
-                <td>{formato(interesTotal)}</td>
-              </tr>
-              <tr>
-                <td>Cuota</td>
-                <td>{formato(cuota)}</td>
-              </tr>
-              <tr>
-                <th>Total final</th>
-                <th>{formato(totalFinal)}</th>
-              </tr>
+              {/* Tabla de resultados */}
+              <tr><td>Potencia estimada (kW)</td><td>{isNaN(potenciaKW) ? "—" : potenciaKW.toFixed(2)}</td></tr>
+              <tr><td>Subtotal equipos</td><td>{formato(subtotalEquipos)}</td></tr>
+              <tr><td>Recargo techo</td><td>{formato(recargoTecho)}</td></tr>
+              <tr><td>Subsidio</td><td>{formato(valorSubsidio)}</td></tr>
+              <tr><td>Instalación final</td><td>{formato(instalacionFinal)}</td></tr>
+              <tr><td>IVA 19%</td><td>{formato(valorIVA)}</td></tr>
+              <tr><td>Envío</td><td>{formato(envio)}</td></tr>
+              <tr><td>Garantía</td><td>{formato(valorGarantia)}</td></tr>
+              <tr><td>Total antes de financiar</td><td>{formato(totalAntesFinanciar)}</td></tr>
+              <tr><td>Pie</td><td>{formato(pie)}</td></tr>
+              <tr><td>Interés total</td><td>{formato(interesTotal)}</td></tr>
+              <tr><td>Cuota</td><td>{formato(cuota)}</td></tr>
+              <tr><th>Total final</th><th>{formato(totalFinal)}</th></tr>
             </tbody>
           </Table>
         </div>
