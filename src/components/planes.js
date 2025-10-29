@@ -27,7 +27,7 @@ function Planes() {
                 <li>Instalación estándar</li>
                 <li>Monitoreo básico</li>
               </ul>
-              <Button variant="teal" className="w-100 fw-semibold">
+              <Button variant="teal" className="w-100 fw-semibold" href="#contacto">
                 Solicitar evaluación
               </Button>
             </Card.Body>
@@ -49,7 +49,7 @@ function Planes() {
                 <li>Instalación optimizada</li>
                 <li>Monitoreo avanzado</li>
               </ul>
-              <Button variant="teal" className="w-100 fw-semibold">
+              <Button variant="teal" className="w-100 fw-semibold" href="#contacto">
                 Solicitar evaluación
               </Button>
             </Card.Body>
@@ -71,7 +71,7 @@ function Planes() {
                 <li>Almacenamiento</li>
                 <li>Soporte preferente</li>
               </ul>
-              <Button variant="teal" className="w-100 fw-semibold">
+              <Button variant="teal" className="w-100 fw-semibold" href="#contacto">
                 Solicitar evaluación
               </Button>
             </Card.Body>
