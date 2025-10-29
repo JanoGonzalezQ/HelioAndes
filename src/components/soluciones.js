@@ -17,7 +17,7 @@ function TarjetaServicios() {
         backgroundPosition: 'center', //backgroundImage: genera el degradado de color.
         backgroundSize: 'cover',
         padding: '30px 0', //padding:agrega espacio vertical.
-        color: 'rgba(16, 15, 15, 0.7)', //color del texto
+        color: 'rgba(255, 255, 255, 1)', //color del texto
         textAlign: 'left'
     }}>
         <h2>SOLUCIONES</h2>

@@ -50,20 +50,7 @@ function BarraMenu() {
               <Nav.Link href="#contacto">Contacto</Nav.Link>
             </Nav>
             
-            <div className="d-flex">
-              <Button variant="outline-light" className="me-2">
-                <i className="fas fa-search"></i>
-              </Button>
-              <Button variant="outline-light" className="position-relative">
-                <i className="fas fa-shopping-cart"></i>
-                <Badge 
-                  bg="success" 
-                  className="position-absolute top-0 start-100 translate-middle"
-                >
-                  0
-                </Badge>
-              </Button>
-            </div>
+          
           </Navbar.Collapse>
         </Container>
       </Navbar>

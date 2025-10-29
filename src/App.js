@@ -9,6 +9,7 @@ import Soluciones from './components/soluciones';
 import DescripcionPlanes from './components/planes';
 import DescripcionTestimonio from './components/testimonios';
 import DescripcionFooter from "./components/footer";
+import FAQ from "./components/FAQ"
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
           <DescripcionTestimonio/>
         </div>
         
+        <div id="FAQ">
+          <FAQ/>
+        </div>
 
       </div>
 
@@ -55,9 +59,11 @@ function App() {
         <Contacto />
       </div>
 
-        <div id="footer">
+         <div id="footer">
           <DescripcionFooter/>
         </div>
+
+        
     </div>
   );
 }
