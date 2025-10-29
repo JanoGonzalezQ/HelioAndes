@@ -6,6 +6,8 @@ import Navbar from './components/navbar';
 import Contacto from './components/contacto';
 import Servicios from './components/servicios';
 import Soluciones from './components/soluciones';
+import DescripcionPlanes from './components/planes';
+import DescripcionTestimonios from './components/testimonios';
 
 function App() {
   return (
@@ -35,6 +37,15 @@ function App() {
         <div id="demo-calculadora">
           <CalculoRemuneracion />
         </div>
+
+        <div id="planes">
+          <DescripcionPlanes/>
+        </div>
+
+        <div id="testimonios">
+          <DescripcionTestimonios/>
+        </div>
+
 
       </div>
 
