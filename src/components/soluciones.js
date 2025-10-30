@@ -16,7 +16,7 @@ function TarjetaServicios() {
         backgroundRepeat: 'no-repeat', 
         backgroundPosition: 'center', 
         backgroundSize: 'cover',
-        padding: '30px 0', //padding:agrega espacio vertical.
+        padding: '30px', //padding:agrega espacio vertical.
         color: 'rgba(255, 255, 255, 1)', //color del texto
         textAlign: 'left'
     }}>

@@ -12,7 +12,7 @@ function DescripcionTestimonio() {
         backgroundRepeat: "no-repeat", //controlan cómo se muestra el fondo.
         backgroundPosition: "center", //controlan cómo se muestra el fondo.
         backgroundSize: "cover",   //controlan cómo se muestra el fondo.
-        padding: "30px 0", //padding: "30px 0": da espacio interior arriba y abajo.
+        padding: "30px", //padding: "30px 0": da espacio interior arriba y abajo.
         borderRadius: "10px", //borderRadius: "10px": redondea las esquinas del bloque.
       }}
     >
